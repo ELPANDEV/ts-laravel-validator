@@ -1,6 +1,6 @@
 {
   "name": "@elpandev/laravel-validator",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "validators",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -15,5 +15,8 @@
   },
   "publishConfig": {
     "access": "public"
-  }
+  },
+  "files": [
+    "dist"
+  ]
 }
