@@ -1,5 +1,5 @@
-const validate_number = (value: any): boolean => {
+const validator_number = (value: any): boolean => {
   return typeof value == 'number'
 }
 
-export default validate_number
+export default validator_number

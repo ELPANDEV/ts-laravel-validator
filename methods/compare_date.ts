@@ -1,14 +1,14 @@
 const compare_date = (date_to_compare: string, operator: '>'|'=='|'<', date: string) => {
   let [
-    year,
-    month,
     day,
+    month,
+    year,
   ] = date.split('-').map(e => parseInt(e))
 
   let [
-    year_to_compare,
-    month_to_compare,
     day_to_compare,
+    month_to_compare,
+    year_to_compare,
   ] = date_to_compare.split('-').map(e => parseInt(e))
 
        if (year_to_compare > year)   { if (operator == '>') return true }

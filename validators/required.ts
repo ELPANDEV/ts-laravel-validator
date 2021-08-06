@@ -1,5 +1,9 @@
-const validate_required = (value: string): boolean => {
-  return value.trim() !== ''
+import validator_string from "./string"
+
+const validator_required = (value: any): boolean => {
+  if (validator_string(value)) return value.trim() != ''
+
+  return ![null, undefined].includes(value)
 }
 
-export default validate_required
+export default validator_required

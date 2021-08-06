@@ -3,38 +3,43 @@ import IErrors from "./types/errors";
 import IMessages from "./types/messages";
 import Rule from "./types/rule";
 import IRules from "./types/rules";
+import RuleValue from "./types/rule_value";
 import IValues from "./types/values";
+import validator_accepted from "./validators/accepted";
+import validator_after from "./validators/after";
+import validator_before from "./validators/before";
+import validator_email from "./validators/email";
+import validator_length from "./validators/length";
+import validator_max from "./validators/max";
+import validator_min from "./validators/min";
 
-import validate_number from "./validators/number"
-import validate_string from "./validators/string"
+import validator_number from "./validators/number"
+import validator_required from "./validators/required";
+import validator_required_without from "./validators/required_without";
+import validator_string from "./validators/string"
 
 class Validator {
   private values
   private rules
   private messages
   
-  private validate: any = {
-    string: validate_string,
-    number: validate_number,
-  }
-  
-  public errors: IErrors = {}
-
   constructor(values: IValues, rules: IRules, messages: IMessages) {
     this.values   = values
     this.rules    = rules
     this.messages = messages
-
-    this.init()
   }
 
-  private init() {
-    for (const key in this.values) {
-      const value = this.values[key]
-      const rules = this.rules[key]
+  public validate(): IErrors {
+    const errors: IErrors = {}
 
-      rules?.forEach(rule => {
-        if (!this.validate[rule](value)) {
+    for (const key in this.values) {
+      const value        = this.values[key]
+      const rules_values = this.rules[key]
+
+      rules_values?.forEach(rule_value => {
+        const rule = rule_value.split(':')[0] as Rule
+
+        if (!this.validate_rule(rule, rule_value, value)) {
           const custom_message      = this.messages[key]
           const custom_message_rule = custom_message ? custom_message[rule] : undefined
 
@@ -43,38 +48,53 @@ class Validator {
             : 'default message'
 
           if (message) {
-            if (this.errors[key] == undefined) {
-              this.errors[key] = []
+            if (errors[key] == undefined) {
+              errors[key] = []
             }
 
-            this.errors[key].push(message)
+            errors[key].push(message)
           }
         }
       })
+    }
+
+    return errors
+  }
+
+  private validate_rule(rule: Rule, rule_value: RuleValue, value: any): boolean {
+    switch (rule) {
+      case 'accepted':         return validator_accepted(value)
+      case 'after':            return validator_after(rule_value, value)
+      case 'before':           return validator_before(rule_value, value)
+      case 'email':            return validator_email(value)
+      case 'length':           return validator_length(rule_value, value)
+      case 'max':              return validator_max(rule_value, value)
+      case 'min':              return validator_min(rule_value, value)
+      case 'number':           return validator_number(value)
+      case 'required_without': return validator_required_without(value, 'aa')
+      case 'required':         return validator_required(value)
+      case 'string':           return validator_string(value)
+
+      default: return false
     }
   }
 }
 
 const values: IValues = {
-  email: 9,
-  name: 'elpandev'
+  mkey: null
 }
 
 const rules: IRules = {
-  email: ['string', 'number'],
-  name:  ['string', 'number'],
-  email2: ['string', 'number'],
+  mkey: ['required']
 }
 
 const messages: IMessages = {
-  email: {
-    string: 'el campo :attr no es un string',
-  }
+
 }
 
 const validator = new Validator(values, rules, messages)
 
-console.log(validator.errors)
+console.log(validator.validate())
 
 export {
   IErrors,
@@ -83,11 +103,6 @@ export {
   IValues,
   IErrorMessage,
   Rule,
-}
-
-export {
-  validate_number,
-  validate_string,
 }
 
 export { Validator }

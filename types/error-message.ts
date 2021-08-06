@@ -1,7 +1,7 @@
-import RuleType from "./rule"
+import Rule from "./rule"
 
 type IErrorMessage = {
-  [key in RuleType]?: string
+  [key in Rule]?: string
 }
 
 export default IErrorMessage

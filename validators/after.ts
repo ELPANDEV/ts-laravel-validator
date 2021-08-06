@@ -1,12 +1,10 @@
 import compare_date from "../methods/compare_date"
-import date_to_format from "../methods/date_to_format"
+import RuleValue from "../types/rule_value"
 
-const validate_after = (rule: string, value: string): boolean => {
-  const [key, rule_value] = rule.split(':')
+const validator_after = (rule: RuleValue, value: string): boolean => {
+  const rule_value = rule.split(':')[1]
 
-  if (rule_value == 'today') return compare_date(value, '>', date_to_format(new Date(), 'yyyy-mm-dd'))
-
-  return false
+  return compare_date(value, '>', rule_value)
 }
 
-export default validate_after
+export default validator_after
