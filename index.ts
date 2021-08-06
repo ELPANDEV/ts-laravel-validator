@@ -81,12 +81,13 @@ class Validator {
 }
 
 export {
+  IErrorMessage,
   IErrors,
   IMessages,
+  RuleValue,
+  Rule,
   IRules,
   IValues,
-  IErrorMessage,
-  Rule,
 }
 
 export { Validator }
