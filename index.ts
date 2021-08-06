@@ -39,7 +39,7 @@ class Validator {
       rules_values?.forEach(rule_value => {
         const rule = rule_value.split(':')[0] as Rule
 
-        if (!this.validate_rule(rule, rule_value, value)) {
+        if (!this.validate_rule(rule, rule_value, value, this.values)) {
           const custom_message      = this.messages[key]
           const custom_message_rule = custom_message ? custom_message[rule] : undefined
 
@@ -61,7 +61,7 @@ class Validator {
     return errors
   }
 
-  private validate_rule(rule: Rule, rule_value: RuleValue, value: any): boolean {
+  private validate_rule(rule: Rule, rule_value: RuleValue, value: any, values: IValues): boolean {
     switch (rule) {
       case 'accepted':         return validator_accepted(value)
       case 'after':            return validator_after(rule_value, value)
@@ -71,7 +71,7 @@ class Validator {
       case 'max':              return validator_max(rule_value, value)
       case 'min':              return validator_min(rule_value, value)
       case 'number':           return validator_number(value)
-      case 'required_without': return validator_required_without(value, 'aa')
+      case 'required_without': return validator_required_without(rule_value, value, values)
       case 'required':         return validator_required(value)
       case 'string':           return validator_string(value)
 
@@ -79,22 +79,6 @@ class Validator {
     }
   }
 }
-
-const values: IValues = {
-  mkey: null
-}
-
-const rules: IRules = {
-  mkey: ['required']
-}
-
-const messages: IMessages = {
-
-}
-
-const validator = new Validator(values, rules, messages)
-
-console.log(validator.validate())
 
 export {
   IErrors,
