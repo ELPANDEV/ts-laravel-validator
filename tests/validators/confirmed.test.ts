@@ -9,7 +9,7 @@ const permitted_keys = [
 
 permitted_keys.forEach(key => {
   test(`validator_confirmed(${key}) to equal true`, () => {
-    expect(validator_confirmed(key, '', values)).toEqual(true);
+    expect(validator_confirmed(key, values)).toEqual(true);
   })
 })
 
@@ -24,7 +24,7 @@ const non_permitted_keys = [
 
 non_permitted_keys.forEach(key => {
   test(`validator_confirmed(${key}) to equal false`, () => {
-    expect(validator_confirmed(key, '', values)).toEqual(false);
+    expect(validator_confirmed(key, values)).toEqual(false);
   })
 })
 
