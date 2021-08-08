@@ -1,11 +1,7 @@
-const validator_alpha = (value: any): boolean => {
-  if (typeof value == 'string') {
-    const match = value.match(/[a-zA-Z\d]+/)
-    
-    if (match) return match[0] == value
-  }
+import validator_regex from "./regex"
 
-  return false
+const validator_alpha = (value: any): boolean => {
+  return validator_regex(value, '[a-zA-Z]+')
 }
 
 export default validator_alpha

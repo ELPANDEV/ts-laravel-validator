@@ -3,9 +3,9 @@ import validator_alpha from "~/validators/alpha";
 //#region true
 
 const permitted_values = [
-  '3j7hfye8j5uf',
-  '824udjhsuehr',
-  'uw8A9I0ffPsu'
+  'sjdjkejkjr',
+  'asdlqeriej',
+  'poiwertkjsd',
 ]
 
 permitted_values.forEach(value => {
@@ -18,6 +18,7 @@ permitted_values.forEach(value => {
 //#region false
 
 const non_permitted_values = [
+  '24kjksdas9',
   '283usdjf_',
   '28458jsds@',
   '[s9sd8fj'

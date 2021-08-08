@@ -28,7 +28,7 @@ const compare_date = (date: string, operator: '>'|'>='|'=='|'<='|'<', date2: str
     else if (year == year2) {
            if (month <  month2) return true
       else if (month == month2) {
-        if (day2 < day) return true
+        if (day < day2) return true
       }
     }
 
@@ -37,9 +37,9 @@ const compare_date = (date: string, operator: '>'|'>='|'=='|'<='|'<', date2: str
   
   const is_equal  = (): boolean => {
     return (
-      year2  == year  &&
-      month2 == month &&
-      day2   == day
+      year  == year2  &&
+      month == month2 &&
+      day   == day2
     )
   }
 
