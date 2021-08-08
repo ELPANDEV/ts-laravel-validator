@@ -1,11 +1,11 @@
 type Rule =
   'accepted'|
-  `after:${number}-${number}-${number}`|
-  `before:${number}-${number}-${number}`|
+  `after:${'##-##-###'|`${number}-${number}-${number}`}`|
+  `before:${'##-##-###'|`${number}-${number}-${number}`}`|
   'email'|
-  `length:${number}`|
-  `max:${number}`|
-  `min:${number}`|
+  `length:${'#'|number}`|
+  `max:${'#'|number}`|
+  `min:${'#'|number}`|
   'number'|
   `required_without:${string}`|
   'required'|
