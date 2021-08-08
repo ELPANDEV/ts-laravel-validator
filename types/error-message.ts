@@ -1,4 +1,4 @@
-import Rule from "./rule"
+import Rule from "./rule_key"
 
 type IErrorMessage = {
   [key in Rule]?: string

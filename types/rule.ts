@@ -1,13 +1,13 @@
 type Rule =
   'accepted'|
-  'after'|
-  'before'|
+  `after:${number}-${number}-${number}`|
+  `before:${number}-${number}-${number}`|
   'email'|
-  'length'|
-  'max'|
-  'min'|
+  `length:${number}`|
+  `max:${number}`|
+  `min:${number}`|
   'number'|
-  'required_without'|
+  `required_without:${string}`|
   'required'|
   'string'
 

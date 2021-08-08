@@ -1,9 +1,6 @@
 import compare_date from "../methods/compare_date"
-import RuleValue from "../types/rule_value"
 
-const validator_before = (rule: RuleValue, value: string): boolean => {
-  const rule_value = rule.split(':')[1]
-
+const validator_before = (value: string, rule_value: string): boolean => {
   return compare_date(value, '<', rule_value)
 }
 

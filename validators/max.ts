@@ -1,12 +1,9 @@
-import RuleValue from "../types/rule_value"
 import validator_string from "./string"
 
-const validator_max = (rule: RuleValue, value: string): boolean => {
-  const [key, length] = rule.split(':')
-
+const validator_max = (value: string, rule_value: string): boolean => {
   const validated = validator_string(value)
-    ? value.length    <= parseInt(length)
-    : parseInt(value) <= parseInt(length)
+    ? value.length    <= rule_value.length
+    : parseInt(value) <= rule_value.length
 
   return validated
 }

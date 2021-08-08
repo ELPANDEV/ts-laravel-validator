@@ -1,9 +1,5 @@
-import RuleValue from "../types/rule_value"
-
-const validator_length = (rule: RuleValue, value: string): boolean => {
-  const [key, length] = rule.split(':')
-  
-  return value.length === parseInt(length) 
+const validator_length = (value: string, rule_value: string): boolean => {
+  return value.length === rule_value.length 
 }
 
 export default validator_length

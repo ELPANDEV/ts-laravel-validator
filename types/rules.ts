@@ -1,7 +1,7 @@
-import RuleValue from "./rule_value"
+import RuleData from "./rule"
 
 type IRules = {
-  [key: string]: RuleValue[]
+  [key: string]: RuleData[]
 }
 
 export default IRules

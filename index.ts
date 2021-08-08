@@ -1,9 +1,9 @@
 import IErrorMessage from "./types/error-message";
 import IErrors from "./types/errors";
 import IMessages from "./types/messages";
-import Rule from "./types/rule";
+import RuleKey from "./types/rule_key";
 import IRules from "./types/rules";
-import RuleValue from "./types/rule_value";
+import Rule from "./types/rule";
 import IValues from "./types/values";
 import validator_accepted from "./validators/accepted";
 import validator_after from "./validators/after";
@@ -36,12 +36,12 @@ class Validator {
       const value        = this.values[key]
       const rules_values = this.rules[key]
 
-      rules_values?.forEach(rule_value => {
-        const rule = rule_value.split(':')[0] as Rule
+      rules_values?.forEach(rule => {
+        const [rule_key, rule_value] = rule.split(':') as [RuleKey, string]
 
-        if (!this.validate_rule(rule, rule_value, value, this.values)) {
+        if (!this.validate_rule(rule_key, rule_value, value, this.values)) {
           const custom_message      = this.messages[key]
-          const custom_message_rule = custom_message ? custom_message[rule] : undefined
+          const custom_message_rule = custom_message ? custom_message[rule_key] : undefined
 
           const message = custom_message_rule
             ? custom_message_rule.replace(/:attr/g, key)
@@ -61,17 +61,17 @@ class Validator {
     return errors
   }
 
-  private validate_rule(rule: Rule, rule_value: RuleValue, value: any, values: IValues): boolean {
-    switch (rule) {
+  private validate_rule(rule_key: RuleKey, rule_value: string, value: any, values: IValues): boolean {
+    switch (rule_key) {
       case 'accepted':         return validator_accepted(value)
-      case 'after':            return validator_after(rule_value, value)
-      case 'before':           return validator_before(rule_value, value)
+      case 'after':            return validator_after(value, rule_value)
+      case 'before':           return validator_before(value, rule_value)
       case 'email':            return validator_email(value)
-      case 'length':           return validator_length(rule_value, value)
-      case 'max':              return validator_max(rule_value, value)
-      case 'min':              return validator_min(rule_value, value)
+      case 'length':           return validator_length(value, rule_value)
+      case 'max':              return validator_max(value, rule_value)
+      case 'min':              return validator_min(value, rule_value)
       case 'number':           return validator_number(value)
-      case 'required_without': return validator_required_without(rule_value, value, values)
+      case 'required_without': return validator_required_without(value, rule_value, values)
       case 'required':         return validator_required(value)
       case 'string':           return validator_string(value)
 
@@ -84,8 +84,8 @@ export {
   IErrorMessage,
   IErrors,
   IMessages,
-  RuleValue,
   Rule,
+  RuleKey,
   IRules,
   IValues,
 }

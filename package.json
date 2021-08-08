@@ -1,16 +1,19 @@
 {
-  "name": "@elpandev/laravel-validator",
-  "version": "1.0.2",
+  "name": "@elpandev/validators",
+  "version": "1.0.0",
   "description": "validators",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "scripts": {
     "build": "tsc",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "author": "elpandev",
   "license": "ISC",
   "dependencies": {
+    "@babel/preset-typescript": "^7.15.0",
+    "@types/jest": "^26.0.24",
+    "ts-jest": "^27.0.4",
     "typescript": "^4.3.5"
   },
   "publishConfig": {
@@ -18,5 +21,8 @@
   },
   "files": [
     "dist"
-  ]
+  ],
+  "devDependencies": {
+    "jest": "^27.0.6"
+  }
 }
