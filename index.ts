@@ -44,7 +44,7 @@ class Validator {
           const custom_message_rule = custom_message ? custom_message[rule_key] : undefined
 
           const message = custom_message_rule
-            ? custom_message_rule.replace(/:attr/g, key)
+            ? custom_message_rule.replace(/:attr/g, key).replace(/:value/g, rule_value)
             : 'default message'
 
           if (message) {
