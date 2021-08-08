@@ -7,6 +7,8 @@ const values: IValues = {
   is_active: true,
   balance: '$1,024.60',
   picture: 'http://placehold.it/32x32',
+  password: '1234',
+  password_confirmation: '1234',
   age: 25,
   eye_color: 'green',
   name: 'Jessie Logan',
