@@ -1,11 +1,11 @@
 import validator_string from "./string"
 
-const validator_max = (value: string, rule_value: string): boolean => {
-  const validated = validator_string(value)
-    ? value.length    <= rule_value.length
-    : parseInt(value) <= rule_value.length
+const validator_max = (value: string|number, rule_value: string): boolean => {
+  const value_length = validator_string(value)
+    ? (value as string).length
+    : value
 
-  return validated
+  return value_length <= parseInt(rule_value)
 }
 
 export default validator_max
