@@ -1,5 +1,5 @@
 const validator_length = (value: string, rule_value: string): boolean => {
-  return value.length === rule_value.length 
+  return value.length === parseInt(rule_value) 
 }
 
 export default validator_length
