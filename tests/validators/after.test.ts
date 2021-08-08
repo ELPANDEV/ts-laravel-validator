@@ -28,6 +28,8 @@ permitted_values.forEach(value => {
 //#region false
 
 const non_permitted_values: values = [
+  ['10-10-2020', '10-10-2020'],
+
   ['10-10-2020', '11-10-2020'],
   ['10-10-2020', '10-11-2020'],
   ['10-10-2020', '10-10-2021'],
