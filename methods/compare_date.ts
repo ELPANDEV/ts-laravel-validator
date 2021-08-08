@@ -45,9 +45,9 @@ const compare_date = (date: string, operator: '>'|'>='|'=='|'<='|'<', date2: str
 
   switch (operator) {
     case '>':  return is_after()
-    case '>=': return is_equal() && is_after()
+    case '>=': return is_equal() || is_after()
     case '==': return is_equal()
-    case '<=': return is_equal() && is_before()
+    case '<=': return is_equal() || is_before()
     case '<':  return is_before()
   
     default: return false
