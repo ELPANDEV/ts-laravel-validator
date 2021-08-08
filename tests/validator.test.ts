@@ -23,8 +23,6 @@ const messages: IMessages = {
 const validator = new Validator(values, rules, messages)
 const errors    = validator.validate()
 
-console.log(errors)
-
 test(`errors have property about`, () => {
   expect(errors).toHaveProperty('about');
 })
