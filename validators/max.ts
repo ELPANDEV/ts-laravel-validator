@@ -1,4 +1,4 @@
-import length from "../methods/length"
+import { length } from "@elpandev/helper"
 
 const validator_max = (value: any, rule_value: string): boolean => {
   return length(value) <= parseInt(rule_value)

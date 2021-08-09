@@ -1,4 +1,4 @@
-import length from "../methods/length"
+import { length } from "@elpandev/helper"
 import IValues from "../types/values"
 
 const validator_lt = (value: any, rule_value: string, values: IValues): boolean => {
