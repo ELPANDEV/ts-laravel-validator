@@ -74,126 +74,113 @@ import validator_unique from "./validators/unique";
 import validator_uuid from "./validators/uuid";
 import validator_alpha from "./validators/alpha";
 
-class Validator {
-  private values
-  private rules
-  private messages
-  
-  constructor(values: IValues, rules: IRules, messages?: IMessages) {
-    this.values   = values
-    this.rules    = rules
-    this.messages = messages
-  }
+const validate = (values: IValues, rules: IRules, messages?: IMessages): IErrors => {
+  const errors: IErrors = {}
 
-  public validate(): IErrors {
-    const errors: IErrors = {}
+  for (const key in rules) {
+    const value = values[key]
 
-    for (const key in this.rules) {      
-      const rules = this.rules[key]
-      const value = this.values[key]
+    rules[key].forEach(rule => {
+      const [rule_key, rule_value] = rule.split(':') as [RuleKey, string]
 
-      rules.forEach(rule => {
-        const [rule_key, rule_value] = rule.split(':') as [RuleKey, string]
+      if (!validate_rule(key, rule_key, rule_value, value, values)) {
+        const custom_message      = messages ? messages[key] : null
+        const custom_message_rule = custom_message ? custom_message[rule_key] : undefined
 
-        if (!this.validate_rule(key, rule_key, rule_value, value, this.values)) {
-          const custom_message      = this.messages ? this.messages[key] : null
-          const custom_message_rule = custom_message ? custom_message[rule_key] : undefined
+        const message = custom_message_rule
+          ? custom_message_rule
+          : 'el campo :attr no cumple con la regla :rule'
 
-          const message = custom_message_rule
-            ? custom_message_rule
-            : 'el campo :attr no cumple con la regla :rule'
-
-          if (errors[key] == undefined) {
-            errors[key] = []
-          }
-
-          errors[key].push(
-            message
-              .replace(/:attr/g,  key)
-              .replace(/:value/g, rule_value)
-              .replace(/:rule/g,  rule_key)
-          )
+        if (errors[key] == undefined) {
+          errors[key] = []
         }
-      })
-    }
 
-    return errors
+        errors[key].push(
+          message
+            .replace(/:attr/g,  key)
+            .replace(/:value/g, rule_value)
+            .replace(/:rule/g,  rule_key)
+        )
+      }
+    })
   }
 
-  private validate_rule(key: string, rule_key: RuleKey, rule_value: string, value: any, values: IValues): boolean {
-    switch (rule_key) {
-      case `accepted_if`:          return validator_accepted_if(value, rule_value, values)
-      case `accepted`:             return validator_accepted(value)
-      case `active_url`:           return validator_active_url(value) //
-      case `after_or_equal`:       return validator_after_or_equal(value, rule_value)
-      case `after`:                return validator_after(value, rule_value)
-      case `alpha_dash`:           return validator_alpha_dash(value)
-      case `alpha_num`:            return validator_alpha_num(value)
-      case `alpha`:                return validator_alpha(value)
-      case `array`:                return validator_array(value)
-      case `bail`:                 return validator_bail(value) //
-      case `before_or_equal`:      return validator_before_or_equal(value, rule_value)
-      case `before`:               return validator_before(value, rule_value)
-      case `boolean`:              return validator_boolean(value)
-      case `confirmed`:            return validator_confirmed(key, values)
-      case `current_password`:     return validator_current_password(key) //
-      case `date_equals`:          return validator_date_equals(value, rule_value)
-      case `date_format`:          return validator_date_format(value, rule_value)
-      case `date`:                 return validator_date(value) // 
-      case `different`:            return validator_different(value, rule_value, values)
-      case `digits_between`:       return validator_digits_between(value, rule_value) //
-      case `digits`:               return validator_digits(value, rule_value) //
-      case `dimensions`:           return validator_dimensions(value) //
-      case `distinct`:             return validator_distinct(value) //
-      case `email`:                return validator_email(value)
-      case `ends_with`:            return validator_ends_with(value, rule_value)
-      case `exclude_if`:           return validator_exclude_if(value) //
-      case `exclude_unless`:       return validator_exclude_unless(value) //
-      case `exists`:               return validator_exists(value) //
-      case `file`:                 return validator_file(value)
-      case `filled`:               return validator_filled(value) //
-      case `gt`:                   return validator_gt(value, rule_value, values) //
-      case `gte`:                  return validator_gte(value, rule_value, values) //
-      case `image`:                return validator_image(value)
-      case `in_array`:             return validator_in_array(value, rule_value, values) //
-      case `in`:                   return validator_in(value, rule_value) //
-      case `integer`:              return validator_integer(value)
-      case `ip`:                   return validator_ip(value) //
-      case `ipv4`:                 return validator_ipv4(value) //
-      case `ipv6`:                 return validator_ipv6(value) //
-      case `json`:                 return validator_json(value)
-      case `length`:               return validator_length(value, rule_value)
-      case `lt`:                   return validator_lt(value, rule_value, values) //
-      case `lte`:                  return validator_lte(value, rule_value, values) //
-      case `max`:                  return validator_max(value, rule_value)
-      case `mime_types`:           return validator_mime_types(value, rule_value)
-      case `mimes`:                return validator_mimes(value, rule_value)
-      case `min`:                  return validator_min(value, rule_value)
-      case `number`:               return validator_number(value)
-      case `present`:              return validator_present(key, values)
-      case `prohibited_if`:        return validator_prohibited_if(value, rule_value, values) //
-      case `prohibited_unless`:    return validator_prohibited_unless(value, rule_value, values) //
-      case `prohibited`:           return validator_prohibited(value) //
-      case `regex`:                return validator_regex(value, rule_value)
-      case `required_if`:          return validator_required_if(value) //
-      case `required_unless`:      return validator_required_unless(value) //
-      case `required_with_all`:    return validator_required_with_all(value) //
-      case `required_with`:        return validator_required_with(value) //
-      case `required_without_all`: return validator_required_without_all(value) //
-      case `required_without`:     return validator_required_without(value, rule_value, values)
-      case `required`:             return validator_required(value)
-      case `same`:                 return validator_same(value, rule_value, values)
-      case `size`:                 return validator_size(value, rule_value)
-      case `sometimes`:            return validator_sometimes(value) //
-      case `starts_with`:          return validator_starts_with(value, rule_value)
-      case `string`:               return validator_string(value)
-      case `timezone`:             return validator_timezone(value) //
-      case `unique`:               return validator_unique(value) //
-      case `url`:                  return validator_url(value)
-      case `uuid`:                 return validator_uuid(value) //
+  return errors
+}
 
-      default: return true
-    }
+const validate_rule = (key: string, rule_key: RuleKey, rule_value: string, value: any, values: IValues): boolean => {
+  switch (rule_key) {
+    case `accepted_if`:          return validator_accepted_if(value, rule_value, values)
+    case `accepted`:             return validator_accepted(value)
+    case `active_url`:           return validator_active_url(value) //
+    case `after_or_equal`:       return validator_after_or_equal(value, rule_value)
+    case `after`:                return validator_after(value, rule_value)
+    case `alpha_dash`:           return validator_alpha_dash(value)
+    case `alpha_num`:            return validator_alpha_num(value)
+    case `alpha`:                return validator_alpha(value)
+    case `array`:                return validator_array(value)
+    case `bail`:                 return validator_bail(value) //
+    case `before_or_equal`:      return validator_before_or_equal(value, rule_value)
+    case `before`:               return validator_before(value, rule_value)
+    case `boolean`:              return validator_boolean(value)
+    case `confirmed`:            return validator_confirmed(key, values)
+    case `current_password`:     return validator_current_password(key) //
+    case `date_equals`:          return validator_date_equals(value, rule_value)
+    case `date_format`:          return validator_date_format(value, rule_value)
+    case `date`:                 return validator_date(value) // 
+    case `different`:            return validator_different(value, rule_value, values)
+    case `digits_between`:       return validator_digits_between(value, rule_value) //
+    case `digits`:               return validator_digits(value, rule_value) //
+    case `dimensions`:           return validator_dimensions(value) //
+    case `distinct`:             return validator_distinct(value) //
+    case `email`:                return validator_email(value)
+    case `ends_with`:            return validator_ends_with(value, rule_value)
+    case `exclude_if`:           return validator_exclude_if(value) //
+    case `exclude_unless`:       return validator_exclude_unless(value) //
+    case `exists`:               return validator_exists(value) //
+    case `file`:                 return validator_file(value)
+    case `filled`:               return validator_filled(value) //
+    case `gt`:                   return validator_gt(value, rule_value, values) //
+    case `gte`:                  return validator_gte(value, rule_value, values) //
+    case `image`:                return validator_image(value)
+    case `in_array`:             return validator_in_array(value, rule_value, values) //
+    case `in`:                   return validator_in(value, rule_value) //
+    case `integer`:              return validator_integer(value)
+    case `ip`:                   return validator_ip(value) //
+    case `ipv4`:                 return validator_ipv4(value) //
+    case `ipv6`:                 return validator_ipv6(value) //
+    case `json`:                 return validator_json(value)
+    case `length`:               return validator_length(value, rule_value)
+    case `lt`:                   return validator_lt(value, rule_value, values) //
+    case `lte`:                  return validator_lte(value, rule_value, values) //
+    case `max`:                  return validator_max(value, rule_value)
+    case `mime_types`:           return validator_mime_types(value, rule_value)
+    case `mimes`:                return validator_mimes(value, rule_value)
+    case `min`:                  return validator_min(value, rule_value)
+    case `number`:               return validator_number(value)
+    case `present`:              return validator_present(key, values)
+    case `prohibited_if`:        return validator_prohibited_if(value, rule_value, values) //
+    case `prohibited_unless`:    return validator_prohibited_unless(value, rule_value, values) //
+    case `prohibited`:           return validator_prohibited(value) //
+    case `regex`:                return validator_regex(value, rule_value)
+    case `required_if`:          return validator_required_if(value) //
+    case `required_unless`:      return validator_required_unless(value) //
+    case `required_with_all`:    return validator_required_with_all(value) //
+    case `required_with`:        return validator_required_with(value) //
+    case `required_without_all`: return validator_required_without_all(value) //
+    case `required_without`:     return validator_required_without(value, rule_value, values)
+    case `required`:             return validator_required(value)
+    case `same`:                 return validator_same(value, rule_value, values)
+    case `size`:                 return validator_size(value, rule_value)
+    case `sometimes`:            return validator_sometimes(value) //
+    case `starts_with`:          return validator_starts_with(value, rule_value)
+    case `string`:               return validator_string(value)
+    case `timezone`:             return validator_timezone(value) //
+    case `unique`:               return validator_unique(value) //
+    case `url`:                  return validator_url(value)
+    case `uuid`:                 return validator_uuid(value) //
+
+    default: return true
   }
 }
 
@@ -203,4 +190,4 @@ export {
   IValues,
 }
 
-export default Validator
+export default validate

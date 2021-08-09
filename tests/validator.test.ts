@@ -2,13 +2,12 @@ import rules_errors from "../data/rules/errors"
 import rules_no_errors from "../data/rules/no_errors"
 import values from "../data/values"
 import IMessages from "../types/messages"
-import Validator from ".."
+import validate from ".."
 
 //#region no errors
 
 test(`errors to equal 0`, () => {
-  const validator     = new Validator(values, rules_no_errors)
-  const errors        = validator.validate()
+  const errors        = validate(values, rules_no_errors)
   const errors_length = Object.keys(errors).length
 
   expect(errors_length).toEqual(0);
@@ -17,8 +16,7 @@ test(`errors to equal 0`, () => {
 //#endregion
 //#region errors
 
-const validator = new Validator(values, rules_errors)
-const errors    = validator.validate()
+const errors = validate(values, rules_errors)
 
 const key_errors = [
   { key: 'id',        length: 3 },
