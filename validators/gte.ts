@@ -1,5 +1,12 @@
-const validator_gte = (value: any): boolean => {
-  return true
+import length from "~/methods/length"
+import IValues from "~/types/values"
+
+const validator_gte = (value: any, rule_value: string, values: IValues): boolean => {
+  const field = values[rule_value]
+
+  if (field) return length(value) >= length(field)
+  
+  return false
 }
 
 export default validator_gte
