@@ -1,7 +1,5 @@
-import validator_string from "./string"
-
 const validator_required = (value: any): boolean => {
-  if (validator_string(value)) return value.trim() != ''
+  if (typeof value == 'string') return value.trim() != ''
 
   return ![null, undefined].includes(value)
 }
