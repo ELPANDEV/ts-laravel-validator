@@ -128,8 +128,8 @@ const check = ({key, rule_key, rule_value, value, values}: IValidationData): boo
     case `date_format`:          return validator_date_format(value, rule_value)
     case `date`:                 return validator_date(value) // 
     case `different`:            return validator_different(value, rule_value, values)
-    case `digits_between`:       return validator_digits_between(value, rule_value) //
-    case `digits`:               return validator_digits(value, rule_value) //
+    case `digits_between`:       return validator_digits_between(value, rule_value)
+    case `digits`:               return validator_digits(value, rule_value)
     case `dimensions`:           return validator_dimensions(value) //
     case `distinct`:             return validator_distinct(value) //
     case `email`:                return validator_email(value)
@@ -139,28 +139,28 @@ const check = ({key, rule_key, rule_value, value, values}: IValidationData): boo
     case `exists`:               return validator_exists(value) //
     case `file`:                 return value instanceof File
     case `filled`:               return validator_filled(value) //
-    case `gt`:                   return validator_gt(value, rule_value, values) //
-    case `gte`:                  return validator_gte(value, rule_value, values) //
+    case `gt`:                   return validator_gt(value, rule_value, values)
+    case `gte`:                  return validator_gte(value, rule_value, values)
     case `image`:                return validator_image(value)
-    case `in_array`:             return validator_in_array(value, rule_value, values) //
-    case `in`:                   return validator_in(value, rule_value) //
+    case `in_array`:             return validator_in_array(value, rule_value, values)
+    case `in`:                   return validator_in(value, rule_value)
     case `integer`:              return validator_integer(value)
     case `ip`:                   return validator_ip(value) //
     case `ipv4`:                 return validator_ipv4(value) //
     case `ipv6`:                 return validator_ipv6(value) //
     case `json`:                 return typeof value == 'object'
     case `length`:               return validator_length(value, rule_value)
-    case `lt`:                   return validator_lt(value, rule_value, values) //
-    case `lte`:                  return validator_lte(value, rule_value, values) //
+    case `lt`:                   return validator_lt(value, rule_value, values)
+    case `lte`:                  return validator_lte(value, rule_value, values)
     case `max`:                  return validator_max(value, rule_value)
     case `mime_types`:           return validator_mime_types(value, rule_value)
     case `mimes`:                return validator_mimes(value, rule_value)
     case `min`:                  return validator_min(value, rule_value)
     case `number`:               return typeof value == 'number'
     case `present`:              return validator_present(key, values)
-    case `prohibited_if`:        return validator_prohibited_if(value, rule_value, values) //
-    case `prohibited_unless`:    return validator_prohibited_unless(value, rule_value, values) //
-    case `prohibited`:           return validator_prohibited(value) //
+    case `prohibited_if`:        return validator_prohibited_if(value, rule_value, values)
+    case `prohibited_unless`:    return validator_prohibited_unless(value, rule_value, values)
+    case `prohibited`:           return validator_prohibited(value)
     case `regex`:                return validator_regex(value, rule_value)
     case `required_if`:          return validator_required_if(value) //
     case `required_unless`:      return validator_required_unless(value) //
