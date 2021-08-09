@@ -1,5 +1,9 @@
 const validator_image = (value: any): boolean => {
-  return true
+  if (value instanceof File) {
+    return value.type.includes('image')
+  }
+
+  return false
 }
 
 export default validator_image

@@ -1,5 +1,5 @@
 const validator_file = (value: any): boolean => {
-  return true
+  return value instanceof File
 }
 
 export default validator_file

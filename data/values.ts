@@ -38,7 +38,10 @@ const values: IValues = {
   ],
   greeting: 'Hello, Jessie Logan! You have 2 unread messages.',
   favorite_fruit: 'banana',
-  favorite_friend_id: null
+  favorite_friend_id: null,
+  image: new File([], 'name', { type: 'image/png' }),
+  pdf:   new File([], 'name', { type: 'application/pdf' }),
+  video: new File([], 'name', { type: 'video/mp4' }),
 }
 
 export default values
