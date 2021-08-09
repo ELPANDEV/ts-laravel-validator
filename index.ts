@@ -80,7 +80,8 @@ const validate = (values: IValues, rules: IRules, messages?: IMessages): IErrors
   const entries = Object.entries(rules)
 
   for (const [key, rules] of entries) {
-    const value = values[key]
+    const value   = values[key]
+    const is_bail = rules.includes('bail')
   
     for (const rule of rules) {
       const [rule_key, rule_value] = rule.split(':') as [RuleKey, string]
@@ -92,9 +93,7 @@ const validate = (values: IValues, rules: IRules, messages?: IMessages): IErrors
           ? errors[key] = []
           : errors[key].push( message(data, messages) )
       }
-      else {
-        if (rules.includes('bail')) break
-      }
+      else if (is_bail) break
     }
   }
 
