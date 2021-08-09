@@ -68,41 +68,44 @@ import validator_unique from "./validators/unique";
 import validator_uuid from "./validators/uuid";
 import validator_alpha from "./validators/alpha";
 import IValidationData from "interfaces/params";
+import Rule from "types/rule";
+import IErrorMessage from "types/error-message";
 
-const validate = (values: IValues, rules: IRules, messages?: IMessages): IErrors => {
+const validate = (values: IValues, rules: IRules, messages: IMessages = {}): IErrors => {
   const errors  = {} as IErrors
   const entries = Object.entries(rules)
 
   for (const [key, rules] of entries) {
-    const value   = values[key]
-    const is_bail = rules.includes('bail')
-  
-    for (const rule of rules) {
-      const [rule_key, rule_value] = rule.split(':') as [RuleKey, string]
-      
-      const data = { key, value, rule_key, rule_value, rules, values } as IValidationData
+    const _errors = validate_field(key, values[key], rules, values, messages[key])
 
-      if (!check(data)) {
-        if (errors[key] == undefined) errors[key] = []
-        
-        errors[key].push(
-          message(data, messages)
-        )
-      }
-      else if (is_bail) break
+    if (_errors.length > 0) {
+      errors[key] = _errors
     }
   }
 
   return errors
 }
 
-const message = ({ key, rule_key, rule_value } : IValidationData, messages?: IMessages): string => {
-  const custom_message      = messages       ? messages[key]            : null
-  const custom_message_rule = custom_message ? custom_message[rule_key] : undefined
+const validate_field = (key: string, value: any, rules: Rule[], payload: IValues, messages?: IErrorMessage): string[] => {
+  const errors  = [] as string[]
+  const is_bail = rules.includes('bail')
 
-  const message = custom_message_rule || 'el campo :attr no cumple con la regla :rule'
+  for (const rule of rules) {
+    const [rule_key, rule_value] = rule.split(':') as [RuleKey, string]
+    
+    const data = { key, value, rule_key, rule_value, rules, values: payload } as IValidationData
 
-  return message
+    if (!check(data)) {
+      errors.push( message(data, messages) )
+    }
+    else if (is_bail) break
+  }
+
+  return errors
+}
+
+const message = ({ key, rule_key, rule_value } : IValidationData, messages: IErrorMessage = {}): string => {
+  return (messages[rule_key] || 'el campo :attr no cumple con la regla :rule')
     .replace(/:attr/g,  key)
     .replace(/:value/g, rule_value)
     .replace(/:rule/g,  rule_key)
