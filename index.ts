@@ -112,7 +112,7 @@ const check = ({key, rule_key, rule_value, value, values}: IValidationData): boo
   switch (rule_key) {
     case `accepted_if`:          return validator_accepted_if(value, rule_value, values)
     case `accepted`:             return validator_accepted(value)
-    case `active_url`:           return validator_active_url(value) //
+    case `active_url`:           return validator_active_url(value)
     case `after_or_equal`:       return validator_after_or_equal(value, rule_value)
     case `after`:                return validator_after(value, rule_value)
     case `alpha_dash`:           return validator_alpha_dash(value)
@@ -123,31 +123,31 @@ const check = ({key, rule_key, rule_value, value, values}: IValidationData): boo
     case `before`:               return validator_before(value, rule_value)
     case `boolean`:              return typeof value == 'boolean'
     case `confirmed`:            return validator_confirmed(key, values)
-    case `current_password`:     return validator_current_password(key) //
+    case `current_password`:     return validator_current_password(key)
     case `date_equals`:          return validator_date_equals(value, rule_value)
     case `date_format`:          return validator_date_format(value, rule_value)
-    case `date`:                 return validator_date(value) // 
+    case `date`:                 return validator_date(value)
     case `different`:            return validator_different(value, rule_value, values)
     case `digits_between`:       return validator_digits_between(value, rule_value)
     case `digits`:               return validator_digits(value, rule_value)
-    case `dimensions`:           return validator_dimensions(value) //
-    case `distinct`:             return validator_distinct(value) //
+    case `dimensions`:           return validator_dimensions(value)
+    case `distinct`:             return validator_distinct(value)
     case `email`:                return validator_email(value)
     case `ends_with`:            return validator_ends_with(value, rule_value)
-    case `exclude_if`:           return validator_exclude_if(value) //
-    case `exclude_unless`:       return validator_exclude_unless(value) //
-    case `exists`:               return validator_exists(value) //
+    case `exclude_if`:           return validator_exclude_if(value)
+    case `exclude_unless`:       return validator_exclude_unless(value)
+    case `exists`:               return validator_exists(value)
     case `file`:                 return value instanceof File
-    case `filled`:               return validator_filled(value) //
+    case `filled`:               return validator_filled(value)
     case `gt`:                   return validator_gt(value, rule_value, values)
     case `gte`:                  return validator_gte(value, rule_value, values)
     case `image`:                return validator_image(value)
     case `in_array`:             return validator_in_array(value, rule_value, values)
     case `in`:                   return validator_in(value, rule_value)
     case `integer`:              return validator_integer(value)
-    case `ip`:                   return validator_ip(value) //
-    case `ipv4`:                 return validator_ipv4(value) //
-    case `ipv6`:                 return validator_ipv6(value) //
+    case `ip`:                   return validator_ip(value)
+    case `ipv4`:                 return validator_ipv4(value)
+    case `ipv6`:                 return validator_ipv6(value)
     case `json`:                 return typeof value == 'object'
     case `length`:               return validator_length(value, rule_value)
     case `lt`:                   return validator_lt(value, rule_value, values)
@@ -162,22 +162,22 @@ const check = ({key, rule_key, rule_value, value, values}: IValidationData): boo
     case `prohibited_unless`:    return validator_prohibited_unless(value, rule_value, values)
     case `prohibited`:           return validator_prohibited(value)
     case `regex`:                return validator_regex(value, rule_value)
-    case `required_if`:          return validator_required_if(value) //
-    case `required_unless`:      return validator_required_unless(value) //
-    case `required_with_all`:    return validator_required_with_all(value) //
-    case `required_with`:        return validator_required_with(value) //
-    case `required_without_all`: return validator_required_without_all(value) //
+    case `required_if`:          return validator_required_if(value)
+    case `required_unless`:      return validator_required_unless(value)
+    case `required_with_all`:    return validator_required_with_all(value)
+    case `required_with`:        return validator_required_with(value)
+    case `required_without_all`: return validator_required_without_all(value)
     case `required_without`:     return validator_required_without(value, rule_value, values)
     case `required`:             return validator_required(value)
     case `same`:                 return validator_same(value, rule_value, values)
     case `size`:                 return validator_size(value, rule_value)
-    case `sometimes`:            return validator_sometimes(value) //
+    case `sometimes`:            return validator_sometimes(value)
     case `starts_with`:          return validator_starts_with(value, rule_value)
     case `string`:               return typeof value == 'string'
-    case `timezone`:             return validator_timezone(value) //
-    case `unique`:               return validator_unique(value) //
+    case `timezone`:             return validator_timezone(value)
+    case `unique`:               return validator_unique(value)
     case `url`:                  return validator_url(value)
-    case `uuid`:                 return validator_uuid(value) //
+    case `uuid`:                 return validator_uuid(value)
 
     default: return false
   }
