@@ -101,7 +101,7 @@ class Validator {
     const is_bail = rules.includes('bail')
   
     for (const rule of rules) {
-      if (!this.check(key, rule, value)) {
+      if (!this.check(key, value, rule)) {
         errors.push( this.message(key, rule) )
       }
       else if (is_bail) break
@@ -120,7 +120,7 @@ class Validator {
       .replace(/:rule/g,  rule_key)
   }
   
-  private check = (key: string, rule: Rule, value: any): boolean => {
+  private check = (key: string, value: any, rule: Rule): boolean => {
     const [rule_key, rule_value] = rule.split(':') as [RuleKey, string]
 
     switch (rule_key) {
