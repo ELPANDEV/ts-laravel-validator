@@ -47,6 +47,7 @@ type TMimeExtension =
   'mets'|
   'mods'|
   'mp21'|
+  'mp4'|
   'mp4s'|
   'dot'|
   'mxf'|
@@ -766,3 +767,5 @@ type TMimeExtension =
   'movie'|
   'smv'|
   'ice'
+
+  export default TMimeExtension

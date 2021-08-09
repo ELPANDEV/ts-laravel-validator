@@ -6,9 +6,10 @@ const permitted_values = [
   'sjdjkejkjr',
   'asdlqeriej',
   'poiwertkjsd',
-  'sjdjke-jkjr',
+  'sjd24jAe-jjr',
   'asd_lqeriej',
   'poi-wert_kjsd',
+  '2eef391e-b4bd'
 ]
 
 permitted_values.forEach(value => {

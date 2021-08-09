@@ -766,3 +766,5 @@ type TMime =
   'video/x-sgi-movie'|
   'video/x-smv'|
   'x-conference/x-cooltalk'
+
+  export default TMime

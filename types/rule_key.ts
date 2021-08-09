@@ -1,14 +1,39 @@
 type RuleKey =
+  'accepted_if'|
   'accepted'|
+  'after_or_equal'|
   'after'|
+  'alpha_dash'|
+  'alpha_num'|
+  'alpha'|
+  'array'|
+  'before_or_equal'|
   'before'|
+  'boolean'|
+  'confirmed'|
+  'date_equals'|
+  'date_format'|
+  'different'|
   'email'|
+  'ends_with'|
+  'file'|
+  'image'|
+  'integer'|
+  'json'|
   'length'|
   'max'|
+  'mime_types'|
+  'mimes'|
   'min'|
   'number'|
+  'present'|
+  'regex'|
   'required_without'|
   'required'|
-  'string'
+  'same'|
+  'size'|
+  'starts_with'|
+  'string'|
+  'url'
 
 export default RuleKey

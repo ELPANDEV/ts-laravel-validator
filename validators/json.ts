@@ -1,5 +1,5 @@
 const validator_json = (value: any): boolean => {
-  return true
+  return typeof value == 'object'
 }
 
 export default validator_json
