@@ -11,8 +11,6 @@
   "author": "elpandev",
   "license": "ISC",
   "dependencies": {
-    "@babel/preset-typescript": "^7.15.0",
-    "ts-jest": "^27.0.4",
     "typescript": "^4.3.5"
   },
   "publishConfig": {
@@ -23,7 +21,7 @@
   ],
   "devDependencies": {
     "@types/jest": "^26.0.24",
-    "jest": "^27.0.6"
-  },
-  "typings": "./dist/entrypoint.d.ts"
+    "jest": "^27.0.6",
+    "ts-jest": "^27.0.4"
+  }
 }
