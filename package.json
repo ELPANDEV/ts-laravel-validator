@@ -24,5 +24,6 @@
   "devDependencies": {
     "@types/jest": "^26.0.24",
     "jest": "^27.0.6"
-  }
+  },
+  "typings": "./dist/entrypoint.d.ts"
 }
