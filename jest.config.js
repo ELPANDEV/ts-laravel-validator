@@ -9,6 +9,9 @@ module.exports = {
     'js',
     'json'
   ],
+  modulePathIgnorePatterns: [
+    "<rootDir>/dist/"
+  ],
   transform: {
     "^.+\\.ts$": "ts-jest",
     '^.+\\.js$': 'babel-jest',

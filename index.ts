@@ -82,7 +82,7 @@ const validate = (values: IValues, rules: IRules, messages?: IMessages): IErrors
       
       const data = { key, value, rule_key, rule_value, rules, values } as IValidationData
 
-      if (check(data)) {
+      if (!check(data)) {
         if (errors[key] == undefined) errors[key] = []
         
         errors[key].push(
@@ -119,7 +119,6 @@ const check = ({key, rule_key, rule_value, value, values}: IValidationData): boo
     case `alpha_num`:            return validator_alpha_num(value)
     case `alpha`:                return validator_alpha(value)
     case `array`:                return Array.isArray(value)
-    case `bail`:                 return validator_bail(value) //
     case `before_or_equal`:      return validator_before_or_equal(value, rule_value)
     case `before`:               return validator_before(value, rule_value)
     case `boolean`:              return typeof value == 'boolean'
@@ -180,7 +179,7 @@ const check = ({key, rule_key, rule_value, value, values}: IValidationData): boo
     case `url`:                  return validator_url(value)
     case `uuid`:                 return validator_uuid(value) //
 
-    default: return true
+    default: return false
   }
 }
 
