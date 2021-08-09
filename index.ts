@@ -86,12 +86,18 @@ const validate = (values: IValues, rules: IRules, messages?: IMessages): IErrors
     for (const rule of rules) {
       const [rule_key, rule_value] = rule.split(':') as [RuleKey, string]
       
-      const data = { key, value, rule_key, rule_value, values, rules } as IValidationData
+      const data = {
+        key,      value,
+        rule_key, rule_value,
+        rules,    values   
+      } as IValidationData
 
-      if (validate_rule(data)) {
-        errors[key] == undefined
-          ? errors[key] = []
-          : errors[key].push( message(data, messages) )
+      if (check(data)) {
+        if (errors[key] == undefined) errors[key] = []
+        
+        errors[key].push(
+          message(data, messages)
+        )
       }
       else if (is_bail) break
     }
@@ -112,7 +118,7 @@ const message = ({ key, rule_key, rule_value } : IValidationData, messages?: IMe
     .replace(/:rule/g,  rule_key)
 }
 
-const validate_rule = ({key, rule_key, rule_value, value, values}: IValidationData): boolean => {
+const check = ({key, rule_key, rule_value, value, values}: IValidationData): boolean => {
   switch (rule_key) {
     case `accepted_if`:          return validator_accepted_if(value, rule_value, values)
     case `accepted`:             return validator_accepted(value)
