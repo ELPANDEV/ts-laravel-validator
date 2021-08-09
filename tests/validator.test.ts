@@ -7,7 +7,7 @@ import Validator from ".."
 //#region no errors
 
 test(`errors to equal 0`, () => {
-  const errors        = (new Validator(values, rules_no_errors)).validate()
+  const { errors }    = new Validator(values, rules_no_errors)
   const errors_length = Object.keys(errors).length
 
   expect(errors_length).toEqual(0);
@@ -16,7 +16,7 @@ test(`errors to equal 0`, () => {
 //#endregion
 //#region errors
 
-const errors = (new Validator(values, rules_errors)).validate()
+const { errors } = new Validator(values, rules_errors)
 
 const key_errors = [
   { key: 'id',        length: 3 },

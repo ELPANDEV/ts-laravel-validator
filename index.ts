@@ -66,11 +66,11 @@ import validator_timezone from "./validators/timezone";
 import validator_unique from "./validators/unique";
 import validator_uuid from "./validators/uuid";
 import validator_alpha from "./validators/alpha";
-import IValidationData from "interfaces/params";
 import Rule from "types/rule";
-import IErrorMessage from "types/error-message";
 
 class Validator {
+  public errors: IErrors = {}
+
   private payload
   private rules
   private messages
@@ -79,34 +79,30 @@ class Validator {
     this.payload  = payload
     this.rules    = rules
     this.messages = messages
+
+    this.init()
   }
 
-  public validate = (): IErrors => {
-    const errors  = {} as IErrors
-    const entries = Object.entries(this.rules)
-  
-    for (const [key, rules] of entries) {
-      const _errors = this.validate_field(key, this.payload[key], rules, this.payload, this.messages[key])
+  private init = () => {
+    for (const key in this.rules) {
+      const _errors = this.validate(key)
   
       if (_errors.length > 0) {
-        errors[key] = _errors
+        this.errors[key] = _errors
       }
     }
-  
-    return errors
   }
   
-  private validate_field = (key: string, value: any, rules: Rule[], payload: IValues, messages?: IErrorMessage): string[] => {
+  private validate = (key: string): string[] => {
+    const value = this.payload[key]
+    const rules = this.rules[key]
+
     const errors  = [] as string[]
     const is_bail = rules.includes('bail')
   
     for (const rule of rules) {
-      const [rule_key, rule_value] = rule.split(':') as [RuleKey, string]
-      
-      const data = { key, value, rule_key, rule_value, rules, values: payload } as IValidationData
-  
-      if (!this.check(data)) {
-        errors.push( this.message(data, messages) )
+      if (!this.check(key, rule, value)) {
+        errors.push( this.message(key, rule) )
       }
       else if (is_bail) break
     }
@@ -114,16 +110,21 @@ class Validator {
     return errors
   }
   
-  private message = ({ key, rule_key, rule_value } : IValidationData, messages: IErrorMessage = {}): string => {
+  private message = (key: string, rule: Rule): string => {
+    const messages               = this.messages[key] || {}
+    const [rule_key, rule_value] = rule.split(':') as [RuleKey, string]
+
     return (messages[rule_key] || 'el campo :attr no cumple con la regla :rule')
       .replace(/:attr/g,  key)
       .replace(/:value/g, rule_value)
       .replace(/:rule/g,  rule_key)
   }
   
-  private check = ({key, rule_key, rule_value, value, values}: IValidationData): boolean => {
+  private check = (key: string, rule: Rule, value: any): boolean => {
+    const [rule_key, rule_value] = rule.split(':') as [RuleKey, string]
+
     switch (rule_key) {
-      case `accepted_if`:          return validator_accepted_if(value, rule_value, values)
+      case `accepted_if`:          return validator_accepted_if(value, rule_value, this.payload)
       case `accepted`:             return validator_accepted(value)
       case `active_url`:           return validator_active_url(value)
       case `after_or_equal`:       return validator_after_or_equal(value, rule_value)
@@ -135,12 +136,12 @@ class Validator {
       case `before_or_equal`:      return validator_before_or_equal(value, rule_value)
       case `before`:               return validator_before(value, rule_value)
       case `boolean`:              return typeof value == 'boolean'
-      case `confirmed`:            return validator_confirmed(key, values)
+      case `confirmed`:            return validator_confirmed(key, this.payload)
       case `current_password`:     return validator_current_password(key)
       case `date_equals`:          return validator_date_equals(value, rule_value)
       case `date_format`:          return validator_date_format(value, rule_value)
       case `date`:                 return validator_date(value)
-      case `different`:            return validator_different(value, rule_value, values)
+      case `different`:            return validator_different(value, rule_value, this.payload)
       case `digits_between`:       return validator_digits_between(value, rule_value)
       case `digits`:               return validator_digits(value, rule_value)
       case `dimensions`:           return validator_dimensions(value)
@@ -152,10 +153,10 @@ class Validator {
       case `exists`:               return validator_exists(value)
       case `file`:                 return value instanceof File
       case `filled`:               return validator_filled(value)
-      case `gt`:                   return validator_gt(value, rule_value, values)
-      case `gte`:                  return validator_gte(value, rule_value, values)
+      case `gt`:                   return validator_gt(value, rule_value, this.payload)
+      case `gte`:                  return validator_gte(value, rule_value, this.payload)
       case `image`:                return validator_image(value)
-      case `in_array`:             return validator_in_array(value, rule_value, values)
+      case `in_array`:             return validator_in_array(value, rule_value, this.payload)
       case `in`:                   return validator_in(value, rule_value)
       case `integer`:              return validator_integer(value)
       case `ip`:                   return validator_ip(value)
@@ -163,16 +164,16 @@ class Validator {
       case `ipv6`:                 return validator_ipv6(value)
       case `json`:                 return typeof value == 'object'
       case `length`:               return validator_length(value, rule_value)
-      case `lt`:                   return validator_lt(value, rule_value, values)
-      case `lte`:                  return validator_lte(value, rule_value, values)
+      case `lt`:                   return validator_lt(value, rule_value, this.payload)
+      case `lte`:                  return validator_lte(value, rule_value, this.payload)
       case `max`:                  return validator_max(value, rule_value)
       case `mime_types`:           return validator_mime_types(value, rule_value)
       case `mimes`:                return validator_mimes(value, rule_value)
       case `min`:                  return validator_min(value, rule_value)
       case `number`:               return typeof value == 'number'
-      case `present`:              return validator_present(key, values)
-      case `prohibited_if`:        return validator_prohibited_if(value, rule_value, values)
-      case `prohibited_unless`:    return validator_prohibited_unless(value, rule_value, values)
+      case `present`:              return validator_present(key, this.payload)
+      case `prohibited_if`:        return validator_prohibited_if(value, rule_value, this.payload)
+      case `prohibited_unless`:    return validator_prohibited_unless(value, rule_value, this.payload)
       case `prohibited`:           return validator_prohibited(value)
       case `regex`:                return validator_regex(value, rule_value)
       case `required_if`:          return validator_required_if(value)
@@ -180,9 +181,9 @@ class Validator {
       case `required_with_all`:    return validator_required_with_all(value)
       case `required_with`:        return validator_required_with(value)
       case `required_without_all`: return validator_required_without_all(value)
-      case `required_without`:     return validator_required_without(value, rule_value, values)
+      case `required_without`:     return validator_required_without(value, rule_value, this.payload)
       case `required`:             return validator_required(value)
-      case `same`:                 return validator_same(value, rule_value, values)
+      case `same`:                 return validator_same(value, rule_value, this.payload)
       case `size`:                 return validator_size(value, rule_value)
       case `sometimes`:            return validator_sometimes(value)
       case `starts_with`:          return validator_starts_with(value, rule_value)
