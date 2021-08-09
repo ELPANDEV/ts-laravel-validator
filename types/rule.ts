@@ -9,7 +9,7 @@ type Rule =
   `after:${`##-##-####`|`${number}-${number}-${number}`}`|
   `alpha_dash`|
   `alpha_num`|
-  `alpha_num`|
+  `alpha`|
   `array`|
   `bail`|
   `before_or_equal:${`##-##-####`|`${number}-${number}-${number}`}`|

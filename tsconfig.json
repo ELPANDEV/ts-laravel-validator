@@ -14,13 +14,12 @@
     "esModuleInterop": true,
     "baseUrl": ".",
     "types": [
-      "node",
       "@types/jest"
     ]
   },
   "exclude": [
     "node_modules",
     "dist",
-    "./**/*.test.ts"
+    "./types/*.ts"
   ],
 }
