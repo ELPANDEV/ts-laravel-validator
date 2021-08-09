@@ -73,42 +73,47 @@ import validator_timezone from "./validators/timezone";
 import validator_unique from "./validators/unique";
 import validator_uuid from "./validators/uuid";
 import validator_alpha from "./validators/alpha";
+import IValidationData from "interfaces/params";
 
 const validate = (values: IValues, rules: IRules, messages?: IMessages): IErrors => {
-  const errors: IErrors = {}
+  const errors  = {} as IErrors
+  const entries = Object.entries(rules)
 
-  for (const key in rules) {
+  for (const [key, rules] of entries) {
     const value = values[key]
-
-    rules[key].forEach(rule => {
+  
+    for (const rule of rules) {
       const [rule_key, rule_value] = rule.split(':') as [RuleKey, string]
+      
+      const data = { key, value, rule_key, rule_value, values, rules } as IValidationData
 
-      if (!validate_rule(key, rule_key, rule_value, value, values)) {
-        const custom_message      = messages ? messages[key] : null
-        const custom_message_rule = custom_message ? custom_message[rule_key] : undefined
-
-        const message = custom_message_rule
-          ? custom_message_rule
-          : 'el campo :attr no cumple con la regla :rule'
-
-        if (errors[key] == undefined) {
-          errors[key] = []
-        }
-
-        errors[key].push(
-          message
-            .replace(/:attr/g,  key)
-            .replace(/:value/g, rule_value)
-            .replace(/:rule/g,  rule_key)
-        )
+      if (validate_rule(data)) {
+        errors[key] == undefined
+          ? errors[key] = []
+          : errors[key].push( message(data, messages) )
       }
-    })
+      else {
+        if (rules.includes('bail')) break
+      }
+    }
   }
 
   return errors
 }
 
-const validate_rule = (key: string, rule_key: RuleKey, rule_value: string, value: any, values: IValues): boolean => {
+const message = ({ key, rule_key, rule_value } : IValidationData, messages?: IMessages): string => {
+  const custom_message      = messages       ? messages[key]            : null
+  const custom_message_rule = custom_message ? custom_message[rule_key] : undefined
+
+  const message = custom_message_rule || 'el campo :attr no cumple con la regla :rule'
+
+  return message
+    .replace(/:attr/g,  key)
+    .replace(/:value/g, rule_value)
+    .replace(/:rule/g,  rule_key)
+}
+
+const validate_rule = ({key, rule_key, rule_value, value, values}: IValidationData): boolean => {
   switch (rule_key) {
     case `accepted_if`:          return validator_accepted_if(value, rule_value, values)
     case `accepted`:             return validator_accepted(value)
