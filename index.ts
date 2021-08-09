@@ -86,11 +86,7 @@ const validate = (values: IValues, rules: IRules, messages?: IMessages): IErrors
     for (const rule of rules) {
       const [rule_key, rule_value] = rule.split(':') as [RuleKey, string]
       
-      const data = {
-        key,      value,
-        rule_key, rule_value,
-        rules,    values   
-      } as IValidationData
+      const data = { key, value, rule_key, rule_value, rules, values } as IValidationData
 
       if (check(data)) {
         if (errors[key] == undefined) errors[key] = []
