@@ -1,4 +1,4 @@
-import IValues from "~/types/values"
+import IValues from "../types/values"
 import validator_prohibited from "./prohibited"
 
 const validator_prohibited_if = (value: any, rule_value: string, values: IValues): boolean => {

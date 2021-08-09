@@ -1,5 +1,5 @@
-import length from "~/methods/length"
-import IValues from "~/types/values"
+import length from "../methods/length"
+import IValues from "../types/values"
 
 const validator_lte = (value: any, rule_value: string, values: IValues): boolean => {
   const field = values[rule_value]

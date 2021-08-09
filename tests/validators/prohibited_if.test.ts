@@ -1,5 +1,5 @@
-import values from "~/data/values";
-import validator_prohibited_if from "~/validators/prohibited_if";
+import values from "../../data/values";
+import validator_prohibited_if from "../../validators/prohibited_if";
 
 type values = {
   value:      any,

@@ -1,10 +1,9 @@
-import IErrorMessage from "./types/error-message";
 import IErrors from "./types/errors";
 import IMessages from "./types/messages";
 import RuleKey from "./types/rule_key";
 import IRules from "./types/rules";
-import Rule from "./types/rule";
 import IValues from "./types/values";
+
 import validator_accepted from "./validators/accepted";
 import validator_after from "./validators/after";
 import validator_before from "./validators/before";
@@ -12,7 +11,6 @@ import validator_email from "./validators/email";
 import validator_length from "./validators/length";
 import validator_max from "./validators/max";
 import validator_min from "./validators/min";
-
 import validator_number from "./validators/number"
 import validator_required from "./validators/required";
 import validator_required_without from "./validators/required_without";
@@ -133,13 +131,9 @@ class Validator {
 }
 
 export {
-  IErrorMessage,
-  IErrors,
   IMessages,
-  Rule,
-  RuleKey,
   IRules,
   IValues,
 }
 
-export { Validator }
+export default Validator

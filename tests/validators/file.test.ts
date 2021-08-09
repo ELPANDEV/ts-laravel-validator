@@ -1,4 +1,4 @@
-import validator_file from "~/validators/file";
+import validator_file from "../../validators/file";
 
 //#region true
 

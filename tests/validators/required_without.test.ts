@@ -1,5 +1,5 @@
-import IValues from "~/types/values";
-import validator_required_without from "~/validators/required_without";
+import IValues from "../../types/values";
+import validator_required_without from "../../validators/required_without";
 
 type values = {
   value:      any,

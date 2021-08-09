@@ -1,4 +1,4 @@
-import IValues from "~/types/values";
+import IValues from "../types/values";
 
 const values: IValues = {
   id: '61cab231af',

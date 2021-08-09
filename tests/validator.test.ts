@@ -1,8 +1,8 @@
-import rules_errors from "~/data/rules/errors"
-import rules_no_errors from "~/data/rules/no_errors"
-import values from "~/data/values"
-import IMessages from "~/types/messages"
-import { Validator } from ".."
+import rules_errors from "../data/rules/errors"
+import rules_no_errors from "../data/rules/no_errors"
+import values from "../data/values"
+import IMessages from "../types/messages"
+import Validator from ".."
 
 //#region no errors
 

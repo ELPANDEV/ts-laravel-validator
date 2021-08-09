@@ -1,4 +1,4 @@
-import IRules from "~/types/rules";
+import IRules from "../../types/rules";
 
 const rules_no_errors: IRules = {
   id:        ['required', 'string', 'length:10', 'alpha_num'],

@@ -13,21 +13,13 @@
     "strict": true,
     "esModuleInterop": true,
     "baseUrl": ".",
-    "paths": {
-      "~/*": [
-        "./*"
-      ],
-      "@/*": [
-        "./*"
-      ]
-    },
     "types": [
+      "node",
       "@types/jest"
     ]
   },
   "exclude": [
     "node_modules",
     "dist",
-    "./types/*.ts"
   ],
 }

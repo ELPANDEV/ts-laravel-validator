@@ -1,5 +1,5 @@
-import values from "~/data/values";
-import validator_gt from "~/validators/gt";
+import values from "../../data/values";
+import validator_gt from "../../validators/gt";
 
 type values = {
   value:      string|number|any[]|File,

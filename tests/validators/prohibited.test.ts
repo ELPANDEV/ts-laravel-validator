@@ -1,4 +1,4 @@
-import validator_prohibited from "~/validators/prohibited";
+import validator_prohibited from "../../validators/prohibited";
 
 type values = {
   value:      any,

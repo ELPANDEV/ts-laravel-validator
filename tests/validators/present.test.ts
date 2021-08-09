@@ -1,5 +1,5 @@
-import values from "~/data/values";
-import validator_present from "~/validators/present";
+import values from "../../data/values";
+import validator_present from "../../validators/present";
 
 //#region true
 

@@ -1,4 +1,4 @@
-import IValues from "~/types/values"
+import IValues from "../types/values"
 import validator_accepted from "./accepted"
 
 const validator_accepted_if = (value: string|number|boolean, rule_value: string, values: IValues): boolean => {

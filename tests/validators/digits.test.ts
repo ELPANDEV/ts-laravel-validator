@@ -1,4 +1,4 @@
-import validator_digits from "~/validators/digits";
+import validator_digits from "../../validators/digits";
 
 type values = {
   value:      string|number|any[]|File,

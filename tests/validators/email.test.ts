@@ -1,4 +1,4 @@
-import validator_email from "~/validators/email";
+import validator_email from "../../validators/email";
 
 //#region true
 

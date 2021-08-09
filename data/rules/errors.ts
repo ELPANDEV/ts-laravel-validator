@@ -1,4 +1,4 @@
-import IRules from "~/types/rules"
+import IRules from "../../types/rules"
 
 const rules_errors: IRules = {
   id:        ['array', 'length:11', 'boolean'],

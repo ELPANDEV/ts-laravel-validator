@@ -1,4 +1,4 @@
-import validator_mime_types from "~/validators/mime_types";
+import validator_mime_types from "../../validators/mime_types";
 
 type values = {
   value:      File,

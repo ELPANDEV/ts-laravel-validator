@@ -1,4 +1,4 @@
-import validator_size from "~/validators/size";
+import validator_size from "../../validators/size";
 
 type values = {
   value: string|number|any[]|File,

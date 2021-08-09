@@ -1,5 +1,5 @@
-import TMime from "~/types/mime";
-import TMimeExtension from "~/types/mime-extension";
+import TMime from "../types/mime";
+import TMimeExtension from "../types/mime-extension";
 
 type Rule =
   `accepted_if:${string}`|

@@ -1,4 +1,4 @@
-import validator_between from "~/validators/between";
+import validator_between from "../../validators/between";
 
 type values = {
   value:      string|number|any[]|File,

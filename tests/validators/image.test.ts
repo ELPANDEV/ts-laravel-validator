@@ -1,4 +1,4 @@
-import validator_image from "~/validators/image";
+import validator_image from "../../validators/image";
 
 //#region true
 

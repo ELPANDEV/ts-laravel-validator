@@ -1,6 +1,6 @@
-import validator_after_or_equal from "~/validators/after_or_equal";
-import mm from "~/types/mm";
-import yyyy from "~/types/yyyy";
+import validator_after_or_equal from "../../validators/after_or_equal";
+import mm from "../../types/mm";
+import yyyy from "../../types/yyyy";
 
 type values = (`${number}-${mm}-${yyyy}`)[][]
 

@@ -1,5 +1,5 @@
-import IValues from "~/types/values";
-import validator_required from "~/validators/required";
+import IValues from "../../types/values";
+import validator_required from "../../validators/required";
 
 //#region true
 

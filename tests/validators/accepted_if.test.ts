@@ -1,5 +1,5 @@
-import values from "~/data/values";
-import validator_accepted_if from "~/validators/accepted_if";
+import values from "../../data/values";
+import validator_accepted_if from "../../validators/accepted_if";
 
 type values = {
   value:      any,

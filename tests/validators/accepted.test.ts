@@ -1,4 +1,4 @@
-import validator_accepted from "~/validators/accepted";
+import validator_accepted from "../../validators/accepted";
 
 type values = { [key: string]: (string|number|boolean)[] }
 

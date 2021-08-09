@@ -1,5 +1,5 @@
-import values from "~/data/values";
-import validator_multiple_of from "~/validators/multiple_of";
+import values from "../../data/values";
+import validator_multiple_of from "../../validators/multiple_of";
 
 type values = {
   value:      string|number|any[]|File,

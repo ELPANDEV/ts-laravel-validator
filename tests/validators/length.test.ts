@@ -1,4 +1,4 @@
-import validator_length from "~/validators/length";
+import validator_length from "../../validators/length";
 
 //#region true
 

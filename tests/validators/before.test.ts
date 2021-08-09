@@ -1,6 +1,6 @@
-import validator_before from "~/validators/before";
-import mm from "~/types/mm";
-import yyyy from "~/types/yyyy";
+import validator_before from "../../validators/before";
+import mm from "../../types/mm";
+import yyyy from "../../types/yyyy";
 
 type values = (`${number}-${mm}-${yyyy}`)[][]
 

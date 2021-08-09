@@ -1,4 +1,4 @@
-import validator_date_format from "~/validators/date_format";
+import validator_date_format from "../../validators/date_format";
 
 type values = {
   value:  string,

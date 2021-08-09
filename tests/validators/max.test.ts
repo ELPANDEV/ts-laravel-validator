@@ -1,4 +1,4 @@
-import validator_max from "~/validators/max";
+import validator_max from "../../validators/max";
 
 //#region true
 

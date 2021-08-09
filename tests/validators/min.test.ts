@@ -1,4 +1,4 @@
-import validator_min from "~/validators/min";
+import validator_min from "../../validators/min";
 
 //#region true
 

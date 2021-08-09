@@ -1,4 +1,4 @@
-import validator_alpha_num from "~/validators/alpha_num";
+import validator_alpha_num from "../../validators/alpha_num";
 
 //#region true
 

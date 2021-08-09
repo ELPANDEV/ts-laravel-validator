@@ -1,5 +1,5 @@
-import values from "~/data/values";
-import validator_confirmed from "~/validators/confirmed";
+import values from "../../data/values";
+import validator_confirmed from "../../validators/confirmed";
 
 //#region true
 

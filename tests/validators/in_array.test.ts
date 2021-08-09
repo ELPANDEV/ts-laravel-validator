@@ -1,5 +1,5 @@
-import values from "~/data/values";
-import validator_in_array from "~/validators/in_array";
+import values from "../../data/values";
+import validator_in_array from "../../validators/in_array";
 
 type values = {
   value:      string|number|any[]|File,

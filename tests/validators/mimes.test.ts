@@ -1,4 +1,4 @@
-import validator_mimes from "~/validators/mimes";
+import validator_mimes from "../../validators/mimes";
 
 type values = {
   value:      File,

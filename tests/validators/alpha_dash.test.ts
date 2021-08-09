@@ -1,4 +1,4 @@
-import validator_alpha_dash from "~/validators/alpha_dash";
+import validator_alpha_dash from "../../validators/alpha_dash";
 
 //#region true
 

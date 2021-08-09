@@ -1,4 +1,4 @@
-import validator_starts_with from "~/validators/starts_with";
+import validator_starts_with from "../../validators/starts_with";
 
 type values = {
   value: string,
