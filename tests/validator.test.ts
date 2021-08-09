@@ -2,7 +2,6 @@ import rules_errors from "~/data/rules/errors"
 import rules_no_errors from "~/data/rules/no_errors"
 import values from "~/data/values"
 import IMessages from "~/types/messages"
-import IRules from "~/types/rules"
 import { Validator } from ".."
 
 //#region no errors
@@ -20,8 +19,6 @@ test(`errors to equal 0`, () => {
 
 const validator = new Validator(values, rules_errors)
 const errors    = validator.validate()
-
-console.log(errors)
 
 const key_errors = [
   { key: 'id',        length: 3 },
