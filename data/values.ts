@@ -42,6 +42,7 @@ const values: IValues = {
   image: new File([], 'name', { type: 'image/png' }),
   pdf:   new File([], 'name', { type: 'application/pdf' }),
   video: new File([], 'name', { type: 'video/mp4' }),
+  document: null,
   extra: {
     browser: 'edge'
   }

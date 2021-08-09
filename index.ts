@@ -47,7 +47,7 @@ class Validator {
   private rules
   private messages
   
-  constructor(values: IValues, rules: IRules, messages: IMessages) {
+  constructor(values: IValues, rules: IRules, messages?: IMessages) {
     this.values   = values
     this.rules    = rules
     this.messages = messages
@@ -56,15 +56,15 @@ class Validator {
   public validate(): IErrors {
     const errors: IErrors = {}
 
-    for (const key in this.values) {
-      const value        = this.values[key]
-      const rules_values = this.rules[key]
+    for (const key in this.rules) {      
+      const rules = this.rules[key]
+      const value = this.values[key]
 
-      rules_values?.forEach(rule => {
+      rules.forEach(rule => {
         const [rule_key, rule_value] = rule.split(':') as [RuleKey, string]
 
         if (!this.validate_rule(key, rule_key, rule_value, value, this.values)) {
-          const custom_message      = this.messages[key]
+          const custom_message      = this.messages ? this.messages[key] : null
           const custom_message_rule = custom_message ? custom_message[rule_key] : undefined
 
           const message = custom_message_rule
