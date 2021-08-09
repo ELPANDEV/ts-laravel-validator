@@ -12,25 +12,19 @@ import validator_email from "./validators/email";
 import validator_length from "./validators/length";
 import validator_max from "./validators/max";
 import validator_min from "./validators/min";
-import validator_number from "./validators/number"
 import validator_required from "./validators/required";
 import validator_required_without from "./validators/required_without";
-import validator_string from "./validators/string"
 import validator_after_or_equal from "./validators/after_or_equal";
 import validator_alpha_dash from "./validators/alpha_dash";
 import validator_alpha_num from "./validators/alpha_num";
-import validator_array from "./validators/array";
 import validator_before_or_equal from "./validators/before_or_equal";
-import validator_boolean from "./validators/boolean";
 import validator_confirmed from "./validators/confirmed";
 import validator_date_equals from "./validators/date_equals";
 import validator_date_format from "./validators/date_format";
 import validator_different from "./validators/different";
 import validator_ends_with from "./validators/ends_with";
-import validator_file from "./validators/file";
 import validator_image from "./validators/image";
 import validator_integer from "./validators/integer";
-import validator_json from "./validators/json";
 import validator_mime_types from "./validators/mime_types";
 import validator_mimes from "./validators/mimes";
 import validator_present from "./validators/present";
@@ -124,11 +118,11 @@ const check = ({key, rule_key, rule_value, value, values}: IValidationData): boo
     case `alpha_dash`:           return validator_alpha_dash(value)
     case `alpha_num`:            return validator_alpha_num(value)
     case `alpha`:                return validator_alpha(value)
-    case `array`:                return validator_array(value)
+    case `array`:                return Array.isArray(value)
     case `bail`:                 return validator_bail(value) //
     case `before_or_equal`:      return validator_before_or_equal(value, rule_value)
     case `before`:               return validator_before(value, rule_value)
-    case `boolean`:              return validator_boolean(value)
+    case `boolean`:              return typeof value == 'boolean'
     case `confirmed`:            return validator_confirmed(key, values)
     case `current_password`:     return validator_current_password(key) //
     case `date_equals`:          return validator_date_equals(value, rule_value)
@@ -144,7 +138,7 @@ const check = ({key, rule_key, rule_value, value, values}: IValidationData): boo
     case `exclude_if`:           return validator_exclude_if(value) //
     case `exclude_unless`:       return validator_exclude_unless(value) //
     case `exists`:               return validator_exists(value) //
-    case `file`:                 return validator_file(value)
+    case `file`:                 return value instanceof File
     case `filled`:               return validator_filled(value) //
     case `gt`:                   return validator_gt(value, rule_value, values) //
     case `gte`:                  return validator_gte(value, rule_value, values) //
@@ -155,7 +149,7 @@ const check = ({key, rule_key, rule_value, value, values}: IValidationData): boo
     case `ip`:                   return validator_ip(value) //
     case `ipv4`:                 return validator_ipv4(value) //
     case `ipv6`:                 return validator_ipv6(value) //
-    case `json`:                 return validator_json(value)
+    case `json`:                 return typeof value == 'object'
     case `length`:               return validator_length(value, rule_value)
     case `lt`:                   return validator_lt(value, rule_value, values) //
     case `lte`:                  return validator_lte(value, rule_value, values) //
@@ -163,7 +157,7 @@ const check = ({key, rule_key, rule_value, value, values}: IValidationData): boo
     case `mime_types`:           return validator_mime_types(value, rule_value)
     case `mimes`:                return validator_mimes(value, rule_value)
     case `min`:                  return validator_min(value, rule_value)
-    case `number`:               return validator_number(value)
+    case `number`:               return typeof value == 'number'
     case `present`:              return validator_present(key, values)
     case `prohibited_if`:        return validator_prohibited_if(value, rule_value, values) //
     case `prohibited_unless`:    return validator_prohibited_unless(value, rule_value, values) //
@@ -180,7 +174,7 @@ const check = ({key, rule_key, rule_value, value, values}: IValidationData): boo
     case `size`:                 return validator_size(value, rule_value)
     case `sometimes`:            return validator_sometimes(value) //
     case `starts_with`:          return validator_starts_with(value, rule_value)
-    case `string`:               return validator_string(value)
+    case `string`:               return typeof value == 'string'
     case `timezone`:             return validator_timezone(value) //
     case `unique`:               return validator_unique(value) //
     case `url`:                  return validator_url(value)
