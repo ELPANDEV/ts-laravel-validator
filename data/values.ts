@@ -31,11 +31,13 @@ const values: IValues = {
     'mollit',
     'aliquip'
   ],
+  tag: 'et',
   friends: [
     { id: 0, name: 'Merrill Blackwell' },
     { id: 1, name: 'Ivy Cote' },
     { id: 2, name: 'Jacqueline Hartman' }
   ],
+  friend: 'Merrill Blackwell',
   greeting: 'Hello, Jessie Logan! You have 2 unread messages.',
   favorite_fruit: 'banana',
   favorite_friend_id: null,
