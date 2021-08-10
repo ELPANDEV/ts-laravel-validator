@@ -3,7 +3,7 @@ Laravel validation rules to validate the payload in the frontend with the same r
 
 ## Installation
 ```sh
-npm i @elpandev/helper @elpandev/laravel-validator
+npm i @elpandev/laravel-validator
 ```
 
 ## Rules NOT included (currently)
