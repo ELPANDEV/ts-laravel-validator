@@ -158,7 +158,7 @@ class Validator {
       case `exclude_unless`:       return validator_exclude_unless(rule_value, this.payload)
       case `exists`:               return validator_exists(value)
       case `file`:                 return value instanceof File
-      case `filled`:               return validator_filled(value)
+      case `filled`:               return validator_filled(key, value, this.payload)
       case `gt`:                   return validator_gt(value, rule_value, this.payload)
       case `gte`:                  return validator_gte(value, rule_value, this.payload)
       case `image`:                return validator_image(value)
@@ -191,7 +191,7 @@ class Validator {
       case `required`:             return validator_required(value)
       case `same`:                 return validator_same(value, rule_value, this.payload)
       case `size`:                 return validator_size(value, rule_value)
-      case `sometimes`:            return validator_sometimes(value)
+      case `sometimes`:            return validator_sometimes(key, this.payload)
       case `starts_with`:          return validator_starts_with(value, rule_value)
       case `string`:               return typeof value == 'string'
       case `timezone`:             return validator_timezone(value)
