@@ -1,29 +1,21 @@
-import IValues from "../../types/values";
+import values from "../../data/values";
 import validator_required_without from "../../validators/required_without";
 
 type values = {
   value:      any,
-  rule_value: string,
+  rule_value: string
 }
-
-const values: IValues = {
-  name:    null,
-  email:   undefined,
-  country: '',
-  city:    'ibarra',
-  phone:   12345
-} 
 
 //#region true
 
 const permitted_values: values[] = [
-  { value: 'value',   rule_value: 'email'   },
-  { value: 'value',   rule_value: 'name'    },
-  { value: 'value',   rule_value: 'country' },
-  { value: 'value',   rule_value: 'role'    },
-  { value: null,      rule_value: 'city'    },
-  { value: undefined, rule_value: 'phone'   },
-  { value: '',        rule_value: 'city'    },
+  { value: '1',   rule_value: 'favorite_fruit,document' },
+  { value: true,  rule_value: 'favorite_fruit_id' },
+  { value: 'asd', rule_value: 'document,gender' },
+  { value: [1],   rule_value: 'password,favorite_fruit_id' },
+  { value: '1',   rule_value: 'favorite_fruit_id' },
+  { value: [2],   rule_value: 'document' },
+  { value: 5,     rule_value: 'document,favorite_fruit_id' },
 ]
 
 permitted_values.forEach(({ value, rule_value }) => {
@@ -36,9 +28,9 @@ permitted_values.forEach(({ value, rule_value }) => {
 //#region false
 
 const non_permitted_values: values[] = [
-  { value: null,      rule_value: 'name'  },
-  { value: undefined, rule_value: 'email' },
-  { value: '',        rule_value: 'role'  },
+  { value: '',    rule_value: 'age,password,favorite_fruit_id' },
+  { value: [],    rule_value: 'document,age' },
+  { value: null,  rule_value: 'favorite_fruit_id' },
 ]
 
 non_permitted_values.forEach(({ value, rule_value }) => {
