@@ -3,7 +3,7 @@ Laravel validation rules to validate the payload in the frontend with the same r
 
 ## Installation
 ```sh
-npm i @elpandev/laravel-validator
+npm i @elpandev/helper @elpandev/laravel-validator
 ```
 
 ## Rules NOT included (currently)
@@ -21,7 +21,7 @@ npm i @elpandev/laravel-validator
 ```sh
 import Validator, { IRules, IMessages } from '@elpandev/laravel-validator'
 
-const payload: {
+const payload = {
   name:  'Francisco Moncayo',
   web:   'https://elpan.dev'
 }
@@ -41,5 +41,6 @@ const messages: IMessages = {
 
 const { errors } = new Validator(payload, rules, messages)
 
-const email_errors = errors.email // ['Email is required', 'Email formart is invalid']
+const name_errors  = errors.name  // ['alpha']
+const email_errors = errors.email // ['required', 'email']
 ```
