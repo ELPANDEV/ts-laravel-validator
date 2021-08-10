@@ -94,17 +94,21 @@ class Validator {
   }
   
   private validate = (key: string): string[] => {
-    const value = this.payload[key]
-    const rules = this.rules[key]
-
+    const value   = this.payload[key]
+    const rules   = this.rules[key]
     const errors  = [] as string[]
     const is_bail = rules.includes('bail')
-  
+    
     for (const rule of rules) {
-      if (!this.check(key, value, rule)) {
+      const check = this.check(key, value, rule)
+
+      if (check == 'exclude') break
+      
+      else if (!check) {
         errors.push( this.message(key, rule) )
+
+        if (is_bail) break
       }
-      else if (is_bail) break
     }
   
     return errors
@@ -120,7 +124,7 @@ class Validator {
       .replace(/:rule/g,  rule_key)
   }
   
-  private check = (key: string, value: any, rule: Rule): boolean => {
+  private check = (key: string, value: any, rule: Rule): 'exclude'|boolean => {
     const [rule_key, rule_value] = rule.split(':') as [RuleKey, string]
 
     switch (rule_key) {
