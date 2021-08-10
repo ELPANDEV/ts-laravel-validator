@@ -155,7 +155,7 @@ class Validator {
       case `email`:                return validator_email(value)
       case `ends_with`:            return validator_ends_with(value, rule_value)
       case `exclude_if`:           return validator_exclude_if(rule_value, this.payload)
-      case `exclude_unless`:       return validator_exclude_unless(value)
+      case `exclude_unless`:       return validator_exclude_unless(rule_value, this.payload)
       case `exists`:               return validator_exists(value)
       case `file`:                 return value instanceof File
       case `filled`:               return validator_filled(value)

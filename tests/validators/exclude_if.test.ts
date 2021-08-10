@@ -1,4 +1,4 @@
-import IValues from "types/values";
+import values from "../../data/values";
 import validator_exclude_if from "../../validators/exclude_if";
 
 type values = {
@@ -6,21 +6,16 @@ type values = {
   rule_value: string
 }
 
-const payload = {
-  name: 'ELPANDEV',
-  email: 'javoavmystery@gmail.com'
-}
-
 //#region break
 
 const break_values: values[] = [
-  { value: null, rule_value: 'name,ELPANDEV' },
-  { value: null, rule_value: 'email,javoavmystery@gmail.com' },
+  { value: null, rule_value: 'name,Jessie Logan' },
+  { value: null, rule_value: 'email,jessielogan@ebidco.com' },
 ]
 
 break_values.forEach(({ rule_value }) => {
   test(`validator_exclude_if(${rule_value}) to equal 'break'`, () => {
-    expect(validator_exclude_if(rule_value, payload)).toEqual('break');
+    expect(validator_exclude_if(rule_value, values)).toEqual('break');
   })
 })
 
@@ -28,13 +23,13 @@ break_values.forEach(({ rule_value }) => {
 //#region continue
 
 const continue_values: values[] = [
-  { value: null, rule_value: 'name,ELPANDEV1' },
-  { value: null, rule_value: 'email,javoavmystery@gmail.com1' },
+  { value: null, rule_value: 'name,Jessie Logan1' },
+  { value: null, rule_value: 'email,jessielogan@ebidco.com1' },
 ]
 
 continue_values.forEach(({ rule_value }) => {
   test(`validator_exclude_if(${rule_value}) to equal 'continue'`, () => {
-    expect(validator_exclude_if(rule_value, payload)).toEqual('continue');
+    expect(validator_exclude_if(rule_value, values)).toEqual('continue');
   })
 })
 
