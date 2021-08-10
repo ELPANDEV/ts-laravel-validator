@@ -67,6 +67,7 @@ import validator_unique from "./validators/unique";
 import validator_uuid from "./validators/uuid";
 import validator_alpha from "./validators/alpha";
 import Rule from "types/rule";
+import TChecker from "types/checker";
 
 class Validator {
   public errors: IErrors = {}
@@ -102,9 +103,10 @@ class Validator {
     for (const rule of rules) {
       const check = this.check(key, value, rule)
 
-      if (check == 'exclude') break
+      if (check == 'break')    break
+      if (check == 'continue') continue
       
-      else if (!check) {
+      if (!check) {
         errors.push( this.message(key, rule) )
 
         if (is_bail) break
@@ -124,7 +126,7 @@ class Validator {
       .replace(/:rule/g,  rule_key)
   }
   
-  private check = (key: string, value: any, rule: Rule): 'exclude'|boolean => {
+  private check = (key: string, value: any, rule: Rule): TChecker => {
     const [rule_key, rule_value] = rule.split(':') as [RuleKey, string]
 
     switch (rule_key) {
@@ -152,7 +154,7 @@ class Validator {
       case `distinct`:             return validator_distinct(value)
       case `email`:                return validator_email(value)
       case `ends_with`:            return validator_ends_with(value, rule_value)
-      case `exclude_if`:           return validator_exclude_if(value)
+      case `exclude_if`:           return validator_exclude_if(rule_value, this.payload)
       case `exclude_unless`:       return validator_exclude_unless(value)
       case `exists`:               return validator_exists(value)
       case `file`:                 return value instanceof File
