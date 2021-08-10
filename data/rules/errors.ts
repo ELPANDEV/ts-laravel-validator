@@ -25,6 +25,7 @@ const rules_errors: IRules = {
   image:     ['string', 'mime_types:image/jpeg', 'size:10'],
   video:     ['image', 'mimes:png'],
   extra:     ['array'],
+  none:      ['string']
 }
 
 export default rules_errors

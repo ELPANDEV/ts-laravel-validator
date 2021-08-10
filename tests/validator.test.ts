@@ -1,64 +1,57 @@
-import rules_errors from "../data/rules/errors"
 import rules_no_errors from "../data/rules/no_errors"
 import values from "../data/values"
-import IMessages from "../types/messages"
 import Validator from ".."
+import IValues from "../types/values"
+import IRules from "../types/rules"
+import IErrors from "../types/errors"
+
+interface ITestData {
+  payload: IValues,
+  rules:   IRules,
+  errors:  IErrors,
+}
+
+const data: ITestData[] = [
+  {
+    payload: {
+      id: '61cab231af',
+      balance: '$1,024.60',
+      picture: 'http://placehold.it/32x32'
+    },
+    rules: {
+      id:      ['sometimes', 'bail', 'number', 'array'],
+      name:    ['sometimes', 'string', 'alpha'],
+      balance: ['string', 'alpha', 'min:10', 'max:5'],
+      picture: ['url', 'uuid', 'size:10']
+    },
+    errors: {
+      id:      ['number'],
+      balance: ['alpha', 'min'],
+      picture: ['uuid', 'size'],
+    }
+  }
+]
 
 //#region no errors
 
-test(`errors to equal 0`, () => {
-  const { errors }    = new Validator(values, rules_no_errors)
-  const errors_length = Object.keys(errors).length
+data.forEach(({ payload, rules, errors }, index) => {
+  const validator = new Validator(payload, rules)
 
-  expect(errors_length).toEqual(0);
-})
+  for (const key in errors) {
+    const validator_messages = validator.errors[key]
 
-//#endregion
-//#region errors
+    test(`errors to have property ${key}`, () => {
+      expect(validator.errors).toHaveProperty(key);
+    })
 
-const { errors } = new Validator(values, rules_errors)
+    errors[key].forEach((message, index) => {
+      const validator_message = validator_messages[index]
 
-const key_errors = [
-  { key: 'id',        length: 3 },
-  { key: 'is_active', length: 1 },
-  { key: 'picture',   length: 2 },
-  { key: 'password',  length: 3 },
-  { key: 'age',       length: 2 },
-  { key: 'other',     length: 1 },
-  { key: 'locked',    length: 8 },
-  { key: 'email',     length: 1 },
-  { key: 'latitude',  length: 3 },
-  { key: 'longitude', length: 3 },
-  { key: 'longitude', length: 3 },
-  { key: 'document',  length: 1 },
-  { key: 'about',     length: 1 },
-  { key: 'about',     length: 1 },
-  { key: 'guid',      length: 1 },
-  { key: 'company',   length: 2 },
-  { key: 'tags',      length: 1 },
-  { key: 'tags',      length: 1 },
-  { key: 'image',     length: 3 },
-  { key: 'video',     length: 2 },
-  { key: 'extra',     length: 1 },
-]
-
-key_errors.forEach(({ key, length }) => {
-  test(`errors to have property ${key}`, () => {
-    expect(errors).toHaveProperty(key);
-  })
-
-  test(`errors.${key} to equal ${length}`, () => {
-    expect(errors[key].length).toEqual(length);
-  })
-})
-
-//#endregion
-//#region message
-
-const messages: IMessages = {
-  about: {
-    max: 'el campo :attr tiene más de :value caracteres',
+      test(`validator_message to equal ${message}`, () => {
+        expect(validator_message).toEqual(message);
+      })
+    });
   }
-}
+})
 
 //#endregion

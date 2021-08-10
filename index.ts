@@ -120,7 +120,7 @@ class Validator {
     const messages               = this.messages[key] || {}
     const [rule_key, rule_value] = rule.split(':') as [RuleKey, string]
 
-    return (messages[rule_key] || 'el campo :attr no cumple con la regla :rule')
+    return (messages[rule_key] || ':rule')
       .replace(/:attr/g,  key)
       .replace(/:value/g, rule_value)
       .replace(/:rule/g,  rule_key)
@@ -199,7 +199,7 @@ class Validator {
       case `url`:                  return validator_url(value)
       case `uuid`:                 return validator_uuid(value)
   
-      default: return false
+      default: return true
     }
   }
 }
