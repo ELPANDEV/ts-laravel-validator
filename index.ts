@@ -66,8 +66,8 @@ import validator_timezone from "./validators/timezone";
 import validator_unique from "./validators/unique";
 import validator_uuid from "./validators/uuid";
 import validator_alpha from "./validators/alpha";
-import Rule from "types/rule";
-import TChecker from "types/checker";
+import Rule from "./types/rule";
+import TChecker from "./types/checker";
 
 class Validator {
   public errors: IErrors = {}
@@ -183,10 +183,10 @@ class Validator {
       case `prohibited`:           return validator_prohibited(value)
       case `regex`:                return validator_regex(value, rule_value)
       case `required_if`:          return validator_required_if(value, rule_value, this.payload)
-      case `required_unless`:      return validator_required_unless(value)
-      case `required_with_all`:    return validator_required_with_all(value)
-      case `required_with`:        return validator_required_with(value)
-      case `required_without_all`: return validator_required_without_all(value)
+      case `required_unless`:      return validator_required_unless(value, rule_value, this.payload)
+      case `required_with_all`:    return validator_required_with_all(value, rule_value, this.payload)
+      case `required_with`:        return validator_required_with(value, rule_value, this.payload)
+      case `required_without_all`: return validator_required_without_all(value, rule_value, this.payload)
       case `required_without`:     return validator_required_without(value, rule_value, this.payload)
       case `required`:             return validator_required(value)
       case `same`:                 return validator_same(value, rule_value, this.payload)

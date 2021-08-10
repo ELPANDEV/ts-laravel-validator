@@ -1,6 +1,6 @@
-import Rule from "types/rule";
-import RuleKey from "types/rule_key";
-import IValues from "types/values";
+import Rule from "../types/rule";
+import RuleKey from "../types/rule_key";
+import IValues from "../types/values";
 
 interface IValidationData {
   key:        string
