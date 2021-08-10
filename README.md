@@ -42,5 +42,5 @@ const messages: IMessages = {
 const { errors } = new Validator(payload, rules, messages)
 
 const name_errors  = errors.name  // ['alpha']
-const email_errors = errors.email // ['required', 'email']
+const email_errors = errors.email // ['Email is required', 'Email format is invalid']
 ```
