@@ -1,4 +1,3 @@
-import IValues from "../../types/values";
 import validator_required from "../../validators/required";
 
 //#region true
@@ -24,7 +23,9 @@ permitted_values.forEach(value => {
 const non_permitted_values = [
   null,
   undefined,
-  ''
+  '',
+  [],
+  new File([], '')
 ]
 
 non_permitted_values.forEach(value => {

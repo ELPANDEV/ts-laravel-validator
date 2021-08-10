@@ -182,7 +182,7 @@ class Validator {
       case `prohibited_unless`:    return validator_prohibited_unless(value, rule_value, this.payload)
       case `prohibited`:           return validator_prohibited(value)
       case `regex`:                return validator_regex(value, rule_value)
-      case `required_if`:          return validator_required_if(value)
+      case `required_if`:          return validator_required_if(value, rule_value, this.payload)
       case `required_unless`:      return validator_required_unless(value)
       case `required_with_all`:    return validator_required_with_all(value)
       case `required_with`:        return validator_required_with(value)
