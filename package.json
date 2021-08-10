@@ -1,7 +1,7 @@
 {
-  "name": "@elpandev/validators",
+  "name": "@elpandev/laravel-validator",
   "version": "1.0.0",
-  "description": "validators",
+  "description": "laravel-validator",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "scripts": {
